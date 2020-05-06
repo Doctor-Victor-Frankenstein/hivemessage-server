@@ -5,9 +5,10 @@ class Messages {
   }
   async room (req, res) {
     let { id } = req.params
+    let { offset = 0 } = req.query
     let result = null
     try {
-      result = await MessagesModel.query().where({ room: id })
+      result = await MessagesModel.query().where({ room: id }).limit(50).offset(offset)
     } catch (error) {
       console.log(error)
     }

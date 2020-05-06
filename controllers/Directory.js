@@ -18,9 +18,10 @@ class Directory {
 
   async channel (req, res) {
     let { id } = req.params
+    let { offset = 0 } = req.query
     let result = null
     try {
-      result = await DirectoryModel.query().where({ channel: id })
+      result = await DirectoryModel.query().where({ channel: id }).limit(30).offset(offset)
     } catch (error) {
       console.log(error)
     }
