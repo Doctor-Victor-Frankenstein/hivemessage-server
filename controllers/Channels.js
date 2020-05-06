@@ -8,7 +8,7 @@ class Channels {
     let { id } = req.params
     let result = null
     try {
-      result = await Channels.query().findById(id)
+      result = await ChannelsModel.query().findById(id)
     } catch (error) {
       console.log(error)
     }

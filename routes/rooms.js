@@ -3,6 +3,6 @@ const router = express.Router();
 // controller
 const { rooms } = require('./../controllers/Rooms')
 
-router.get('/', (req, res) => res.send('ok'))
+router.get('/channel/:id', (req, res) => rooms.channel(req, res))
 
 module.exports = router;
