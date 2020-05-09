@@ -76,6 +76,8 @@ async function trxUserComare (trx_id, op, errors = 0) {
     }
 	return trxUserComare(trx_id, op, errors+1)
   }
+  // for errors
+  console.log(channelTrx)
   // (if) to analyze possible errors
   if(channelTrx.operations.length>1) console.log(channelTrx)
 	let ownerChannel = _get(channelTrx, 'operations[0].value.required_posting_auths[0]', null)
