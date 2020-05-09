@@ -12,7 +12,6 @@ class Channels {
       result = await ChannelsModel.query().insert({
         id: this.transaction_id,
         block_num: this.block_num,
-        block_id: this.block_id,
         username: _get(this.op, '[1].required_posting_auths[0]', null),
         meta_data: JSON.stringify(meta_data)
       })

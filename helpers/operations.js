@@ -40,7 +40,7 @@ async function operations(op, block_num, block_id, previous_block_id, transactio
       return messages.create(result[1])
     }
 
-    // message functions
+    // directory functions
     if (Array.isArray(result) && result[0] === 'joinChannel') {
       let directory = new Directory(FULL_OP)
       return directory.create(result[1])
