@@ -19,13 +19,6 @@ class ChannelsModel extends Model {
     this.updated_at = moment.utc().unix()
   }
   
-  $beforeInsert () {
-    this.created_at = moment.utc().unix()
-    this.updated_at = moment.utc().unix()
-  }
-  $beforeUpdate () {
-    this.updated_at = moment.utc().unix();
-  }
   $beforeUpdate () {
     this.updated_at = moment.utc().unix();
   }
