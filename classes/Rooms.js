@@ -1,6 +1,6 @@
 const RoomsModel = require('./../models/Rooms')
 const _get = require('lodash/get')
-const { trxUserComare } = require('./../utils')
+const { channelUserCompare } = require('./../utils')
 
 class Rooms {
   constructor (data) {
@@ -13,7 +13,7 @@ class Rooms {
     if(typeof idChannel !== 'string') return;
     
     try {
-      if(await trxUserComare(idChannel, this.op)) return;
+      if(await channelUserCompare(idChannel, this.op)) return;
       result = await RoomsModel.query().insert({
         channel: idChannel,
         meta_data: JSON.stringify(metaData),
@@ -32,7 +32,7 @@ class Rooms {
     if(typeof idRoom !== 'string') return;
 
     try {
-      if(await trxUserComare(idRoom, this.op)) return;
+      if(await channelUserCompare(idRoom, this.op)) return;
       result = await RoomsModel.query().update({
         last_update: this.transaction_id,
         meta_data: JSON.stringify(newData)
@@ -49,7 +49,7 @@ class Rooms {
     if(typeof idChannel !== 'string') return;
 
     try {
-      if(await trxUserComare(idRoom, this.op)) return;
+      if(await channelUserCompare(idRoom, this.op)) return;
       result = await RoomsModel.query().delete().where({ id: idRoom })
     } catch (error) {
       console.log(error)

@@ -1,6 +1,6 @@
 const ChannelsModel = require('./../models/Channels')
 const _get = require('lodash/get')
-const { trxUserComare } = require('./../utils')
+const { channelUserCompare } = require('./../utils')
 
 class Channels {
   constructor (data) {
@@ -28,7 +28,7 @@ class Channels {
     if(typeof idChannel !== 'string') return;
 
     try {
-      if(await trxUserComare(idChannel, this.op)) return;
+      if(await channelUserCompare(idChannel, this.op)) return;
       result = await ChannelsModel.query().update({
         last_update: this.transaction_id,
         meta_data: JSON.stringify(metaData)
@@ -45,7 +45,7 @@ class Channels {
     if(typeof idChannel !== 'string') return;
 
     try {
-      if(await trxUserComare(idChannel, this.op)) return;
+      if(await channelUserCompare(idChannel, this.op)) return;
       result = await ChannelsModel.query().delete().where({ id: idChannel })
     } catch (error) {
       console.log(error)

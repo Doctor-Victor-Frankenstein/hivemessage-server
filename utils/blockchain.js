@@ -65,24 +65,13 @@ function stringToValue(value){
   return value
 }
 
-async function trxUserComare (trx_id, op, errors = 0) {
-  let { api } = require('./../helpers/blockchain')
-  let _get = require('lodash/get');
-  
-  let channelTrx = await api('get_transaction', [ trx_id ])
-  if(channelTrx == null) {
-    if (errors >= 6) {
-      return false
-    }
-	return trxUserComare(trx_id, op, errors+1)
-  }
-  // for errors
-  console.log(channelTrx)
-  // (if) to analyze possible errors
-  if(channelTrx.operations.length>1) console.log(channelTrx)
-	let ownerChannel = _get(channelTrx, 'operations[0].value.required_posting_auths[0]', null)
-	let ownerOperation = _get(op, '[1].required_posting_auths[0]', null)
-	return ownerChannel!==ownerOperation
+async function channelUserCompare (trx_id, op, errors = 0) {
+  let ChannelsModel = require('./../models/Channels')
+  let _get = require('lodash/get')
+  let infoChannel = await ChannelsModel.query().findOne({ id: trx_id })
+  let ownerChannel = _get(infoChannel, 'username', null)
+  let ownerOperation = _get(op, '[1].required_posting_auths[0]', null)
+  return ownerChannel!==ownerOperation
 }
 
 module.exports = {
@@ -91,5 +80,5 @@ module.exports = {
 	timeout,
 	tryParse,
 	parsedJson: stringToValue,
-	trxUserComare: trxUserComare
+	channelUserCompare: channelUserCompare
 }
