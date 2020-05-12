@@ -13,6 +13,8 @@ class Directory {
     if(typeof idChannel !== 'string') return;
 
     try {
+      let checkUser = await DirectoryModel.query().findOne({ channel: idChannel, username })
+      if(checkUser) { return; }
       result = await DirectoryModel.query().insert({ id: this.transaction_id, channel: idChannel, username })
     } catch (error) {
       console.log(error)
